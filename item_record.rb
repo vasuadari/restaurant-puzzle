@@ -4,13 +4,13 @@ class ItemRecord
   end
 
   def id
-    id = @csv_row.at(0)
+    id = @csv_row.first
     validate(:id, id)
     id.to_i
   end
 
   def price
-    price = @csv_row.at(1)
+    price = @csv_row[1]
     validate(:price, price)
     price.to_f
   end

@@ -14,8 +14,8 @@ class InputParser
   def parse_data
     @new_town = Town.new('Jurgensville')
     input_file.each_record do |record|
-      restaurant = new_town.find_or_add_restaurant_by_id record.id
-      restaurant.add_item(record.price, record.items)
+      restaurant = new_town.find_or_add_restaurant_by_id(record.id)
+      restaurant.add_item_or_meal(record.price, record.items)
     end
   end
 
@@ -23,11 +23,15 @@ class InputParser
     if item_names.size.zero?
       puts 'Please enter item names to find the cheapest restaurant.'
     else
-      cheapest_restaurant = new_town.find_cheapest_restaurant(item_names.uniq)
-      if cheapest_restaurant.nil?
+      minimum_cost_from_restaurants =
+        new_town.restaurants.map do |restaurant|
+          [restaurant.id, restaurant.items_combinations(item_names).sort.first]
+        end
+      id, cost = minimum_cost_from_restaurants.sort_by { |id, cost| cost }.first
+      if cost.nil?
         p nil
       else
-        puts "#{cheapest_restaurant.first}, #{cheapest_restaurant.last}"
+        puts "#{id}, #{cost}"
       end
     end
   end
