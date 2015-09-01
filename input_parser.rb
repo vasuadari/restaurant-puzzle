@@ -27,14 +27,14 @@ class InputParser
 
     minimum_cost_from_restaurants =
       new_town.restaurants.map do |restaurant|
-        [restaurant.id, restaurant.calculate_cheapest_cost(@item_names)]
+        [restaurant.id, restaurant.minimum_cost(@item_names)]
       end
 
     restaurant_id_and_cost = minimum_cost_from_restaurants.sort_by { |id, cost| cost }.first
     restaurant_id_and_cost.last.nil? ? nil : restaurant_id_and_cost
   end
 
-  def print_cheapest_restaurant
+  def print_cheapest_restaurant_with_cost
     if @item_names.size.zero?
       puts 'Please enter item names to find the cheapest restaurant.'
     else

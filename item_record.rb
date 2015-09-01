@@ -29,7 +29,8 @@ class ItemRecord
   end
 
   def qty
-    @csv_row.detect { |item| !item.match(QTY_REGEX).nil? } || 'x1'
+    qty = @csv_row.detect { |item| !item.match(QTY_REGEX).nil? } || 'x1'
+    qty.split('x').last.to_i
   end
 
   private

@@ -55,3 +55,5 @@ success? InputParser.new(*input).find_cheapest_restaurant == [1, 8]
 
 input = ['test/data5.csv', %w(i1 i3 i2 i3 i2 i3 i1 i2)]
 success? InputParser.new(*input).find_cheapest_restaurant == [1, 36]
+
+puts

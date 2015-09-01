@@ -11,18 +11,13 @@ class Restaurant
     @value_meals = []
   end
 
-  def add_item_or_meal(price, item_names, qty = 'x1')
+  def add_item_or_meal(price, item_names, qty = 1)
     if item_names.size == 1
-      add_item(price, item_names.first)
+      @items << Item.new(id, price, item_names.first)
     else
       new_items = item_names.map { |name| Item.new(id, nil, name) }
       @value_meals << ValueMeal.new(id, price, new_items, qty)
     end
-  end
-
-  def add_item(price, item_name)
-    @items << Item.new(id, price, item_name)
-    @items.last
   end
 
   def find_items(item_names)
@@ -53,7 +48,7 @@ class Restaurant
     items + value_meals.flat_map(&:items)
   end
 
-  def calculate_cheapest_cost(item_names)
+  def minimum_cost(item_names)
     selected_items = find_items(item_names)
     minimum_cost = total_cost(selected_items)
 
@@ -95,7 +90,7 @@ class Restaurant
   def total_cost_of_meals_and_items(item_names, price = 0.0)
     value_meals.map do |meal|
       if meal.all?(item_names)
-        new_item_names, new_price = meal.cost_of_all_items(item_names)
+        new_item_names, new_price = meal.calculate_price(item_names)
         if new_item_names.any?
           total_cost_of_meals_and_items(new_item_names, price + new_price)
         else

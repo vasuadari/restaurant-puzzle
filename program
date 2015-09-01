@@ -2,4 +2,4 @@
 
 require_relative 'input_parser'
 
-InputParser.new(ARGV[0], ARGV.slice(1, ARGV.size)).print_cheapest_restaurant
+InputParser.new(ARGV[0], ARGV.slice(1, ARGV.size)).print_cheapest_restaurant_with_cost
