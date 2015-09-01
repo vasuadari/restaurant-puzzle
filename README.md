@@ -5,3 +5,7 @@
 # Usage
 
 ./program test/data1.csv burger tofu_log
+
+# Test
+
+test/test

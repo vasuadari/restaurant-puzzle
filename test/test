@@ -1,0 +1,57 @@
+#! /usr/bin/env ruby
+
+require_relative './../input_parser'
+
+def success?(passed)
+  passed ? print('.') : print('F')
+end
+
+puts 'Running tests'
+
+input = ['test/data1.csv', %w(burger tofu_log)]
+success? InputParser.new(*input).find_cheapest_restaurant == [2, 11.5]
+
+input = ['test/data2.csv', %w(chef_salad wine_spritzer)]
+success? InputParser.new(*input).find_cheapest_restaurant.nil?
+
+input = ['test/data3.csv', %w(fancy_european_water extreme_fajita)]
+success? InputParser.new(*input).find_cheapest_restaurant == [6, 11.0]
+
+input = ['test/data4.csv', %w(i1)]
+success? InputParser.new(*input).find_cheapest_restaurant == [1, 1]
+
+input = ['test/data4.csv', %w(i2)]
+success? InputParser.new(*input).find_cheapest_restaurant == [2, 1.9]
+
+input = ['test/data4.csv', %w(i2 i3)]
+success? InputParser.new(*input).find_cheapest_restaurant == [1, 4]
+
+input = ['test/data4.csv', %w(i1 i4)]
+success? InputParser.new(*input).find_cheapest_restaurant == [1, 5]
+
+input = ['test/data4.csv', %w(i2 i4)]
+success? InputParser.new(*input).find_cheapest_restaurant == [2, 5.9]
+
+input = ['test/data4.csv', %w(i3 i4)]
+success? InputParser.new(*input).find_cheapest_restaurant == [1, 6.5]
+
+input = ['test/data4.csv', %w(i2 i3 i4)]
+success? InputParser.new(*input).find_cheapest_restaurant == [1, 8]
+
+input = ['test/data4.csv', %w(i1 i2 i3 i4)]
+success? InputParser.new(*input).find_cheapest_restaurant == [2, 8.45]
+
+input = ['test/data4.csv', %w(i1 i2 i2 i2 i3 i3 i3)]
+success? InputParser.new(*input).find_cheapest_restaurant == [1, 12.5]
+
+input = ['test/data4.csv', %w(i1 i1 i1 i1 i1 i2 i3 i3 i3 i4 i4)]
+success? InputParser.new(*input).find_cheapest_restaurant == [1, 19.5]
+
+input = ['test/data4.csv', %w(i1 i1 i1 i3 i4 i1 i3 i4 i4 i3 i4 i4 i4 i2 i3 i2 i3 i1 i2 i3 i1 i2 i3 i2 i2)]
+success? InputParser.new(*input).find_cheapest_restaurant == [1, 53]
+
+input = ['test/data5.csv', %w(i1 i2)]
+success? InputParser.new(*input).find_cheapest_restaurant == [1, 8]
+
+input = ['test/data5.csv', %w(i1 i3 i2 i3 i2 i3 i1 i2)]
+success? InputParser.new(*input).find_cheapest_restaurant == [1, 36]
